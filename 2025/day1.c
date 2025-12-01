@@ -30,25 +30,19 @@ int turn_dial(int position, char direction, int steps){
     return new_position;
 }
 
-/*
- * Function takes the same input as turn_dial() but instead returns number of times 0 has been touched.
- */
-int count_clicks(int position, char direction, int steps){
-    int clicks = 0;
+int turn_dial_and_count_clicks(int* position, char direction, int steps){
+
     if(direction != 'L' && direction != 'R')
         return -1;
 
+
+    int clicks = 0;
+    int old_position = *position;
     int directed_steps, new_position;
 
-    // Reduce full rotations of dial and count every full rotation
+    // Reduce full rotations of dial
     if(steps > 99){
-        //("Steps > 99");
-        clicks += steps/100;
         directed_steps = steps%100;
-        if(position == 0){
-            //printf("but starts on 0\n");
-            clicks -= 1;
-        }
     }
     else
         directed_steps = steps;
@@ -58,32 +52,30 @@ int count_clicks(int position, char direction, int steps){
         directed_steps = directed_steps * -1;
 
     // Handle moving between 99 and 0
-    if(position+directed_steps < 0){
-
-        new_position = 100 + (position+directed_steps);
-        if (position != 0){
-            //printf("position less than 0 and start != 0\n");
-            clicks += 1;
-        }
+    if(old_position+directed_steps < 0){
+        new_position = 100 + (old_position+directed_steps);
     }
-    else if(position + directed_steps > 99){
-        new_position = position + directed_steps;
+    else
+        new_position = old_position + directed_steps;
+
+    // Modulo for position > 99
+    if(new_position > 99){
         new_position = new_position%100;
-        if (position != 0 && new_position != 0){
-            //printf("position greater than 100 and start != 0\n");
-            clicks += 1;
-        }
-    }
-    else{
-        new_position = position + directed_steps;
     }
 
-
-    if(new_position == 0){
-        //printf("Ends on 0\n");
+    if(steps > 99){
+        clicks += steps/100;
+    }
+    if(direction == 'L' && old_position + directed_steps < 0 && old_position != 0){
+        clicks += 1;
+    }
+    if(direction == 'R' && old_position + directed_steps > 99 && new_position != 0){
         clicks += 1;
     }
 
+
+
+    *position = new_position;
     return clicks;
 }
 
@@ -127,14 +119,18 @@ int main(){
     int pos = initial_position;
     int zero_count = 0;
     int click_count = 0;
+    int clicks_now;
     while(fgets(myString, 100, fptr)) {
         steps = get_steps(myString);
         direction = get_rotation(myString);
-        click_count += count_clicks(pos, direction, steps);
-        pos = turn_dial(pos, direction, steps);
+        //click_count += count_clicks(pos, direction, steps);
+        click_count += turn_dial_and_count_clicks(&pos, direction, steps);
+        //printf("%d\n", clicks_now);
+        //click_count += clicks_now;
         if(pos == 0)
             zero_count += 1;
     }
+    click_count += zero_count;
     // Close the file
     fclose(fptr);
     printf("The dial stopped on 0 %d times, so the password is: %d\n", zero_count, zero_count);
@@ -142,3 +138,6 @@ int main(){
 
     return 1;
 }
+
+
+// old result: clicks
