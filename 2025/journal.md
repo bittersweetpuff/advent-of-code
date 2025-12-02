@@ -18,3 +18,7 @@ gcc day1.c -o main.out -lm
 ./main.out
 
 ```
+
+## Day 2: Gift Shop
+
+So when I looked at [Day 2](https://adventofcode.com/2025/day/2) I instantly felt like using C was a bad idea (lol). However the strength of this language is that others had similar issues for over 50 years, so there are already solutions for most of those common cases. Second thing: when I saw input data, I already knew how the second part of the puzzle would look like. Anyway, managed to solve fist puzzle before work (and fall in love with sscanf - another sign of how much I don't know C) and will try to solve second part in the afternoon.
