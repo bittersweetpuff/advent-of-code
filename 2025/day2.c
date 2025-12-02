@@ -6,37 +6,40 @@
  #include <stdio.h>
  #include <string.h>
 
-
  int check_pattern_repeat(long int pattern, long int number, int pattern_lenght)
+ /*
+  * Checks if the number consists of multiple patterns (for puzzle 2)
+  */
  {
      long int multi_pattern = pattern;
      while (multi_pattern<=number)
      {
-         //printf("%ld\n", multi_pattern);
          if (multi_pattern == number)
          {
              return 1;
          }
+         /* Takes check pattern (example "12"), multiplies it by length (1200) and adds (1212) */
          multi_pattern = (multi_pattern*(long)pow(10, pattern_lenght)) + pattern;
      }
-
      return 0;
  }
 
  int check_id_validity(long int id)
+ /*
+  * Checks if ID is valid based on Puzzle 1. Calculates length of the number and compares
+  * result of multiplication with modulo.
+  */
  {
      int length = 1;
      while(id%(long)pow(10, length) != id)
          length+=1;
-
      /* Early return for uneven number of digits */
      if(length%2 == 1)
          return 1;
-
      long int left, right;
-     left = id/(long)pow(10, length/2);
-     right = id%(long)pow(10, length/2);
-
+     /* Cast on float is ugly but supresses warnings so why not */
+     left = id/(long)pow(10, (float)length/2);
+     right = id%(long)pow(10, (float)length/2);
      if(left == right)
      {
          return 0;
@@ -48,39 +51,38 @@
  }
 
  int check_id_validity_part2(long int id)
+ /*
+  * Checks if ID is valid based on Puzzle 2
+  */
  {
      int length = 1;
      while(id%(long)pow(10, length) != id)
          length+=1;
-
      for(int pattern_lenght = 1; pattern_lenght<=length/2; pattern_lenght += 1)
      {
          long int pattern = id/(long)pow(10, length-pattern_lenght);
          if(check_pattern_repeat(pattern, id, pattern_lenght))
          {
-             printf("MULTIPATERN: %ld\n", id);
              return 0;
          }
-
-
      }
-
      return 1;
-
  }
 
 
  long long int scan_range(long int start, long int stop, int method)
+ /*
+  * Takes start and stop of the range + method (1 or 2 based on puzzle, yeah i could use some multiple returns)
+  * and returns sum of all invalid IDs in that range
+  */
  {
      long long int sum = 0;
      long long int sum2 = 0;
      for (long int i = start; i <= stop; i += 1)
      {
-         //printf("Checking: %ld\n", i);
          /* add ID if invalid */
          if(!check_id_validity(i))
          {
-             //printf("%ld\n", i);
              sum += i;
          }
          if(!check_id_validity_part2(i))
@@ -96,40 +98,38 @@
      {
          return sum2;
      }
-
  }
 
 
- int main(int argc, char *argv[]){
+ int main(int argc, char *argv[])
+ {
 
-     long long int sumOfInvalids = 0;
-
+     long long int sumOfInvalids1 = 0;
+     long long int sumOfInvalids2 = 0;
      /* Create pointer to the file */
      FILE *fptr;
-
      /*  Open a file in read mode */
      fptr = fopen("./inputs/day2.txt", "r");
-
      /*  Store the content of the file */
      char inputString[1000];
      fgets(inputString, 1000, fptr);
-
      /* Close the file */
      fclose(fptr);
-
      /* Split on comas  */
      char * range = strtok(inputString, ",");
      while( range != NULL ) {
-           //printf( "%s\n", range ); //printing each token
-
            long int start, stop;
+           /* Yeah i love the sscanf */
            if (sscanf(range, "%ld-%ld", &start, &stop))
            {
-               //printf("%ld-%ld\n", start, stop);
-               sumOfInvalids += scan_range(start, stop, 2);
+               sumOfInvalids1 += scan_range(start, stop, 1);
+               sumOfInvalids2 += scan_range(start, stop, 2);
            }
+           /* I hate this way of splitting but seems to be the way to go */
            range = strtok(NULL, ",");
     }
-     printf("The sum of all invalid IDs (second method) is: %lld\n", sumOfInvalids);
+     /* Prints with results */
+     printf("The sum of all invalid IDs (first method) is: %lld\n", sumOfInvalids1);
+     printf("The sum of all invalid IDs (second method) is: %lld\n", sumOfInvalids2);
      return 0;
  }

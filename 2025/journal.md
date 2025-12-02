@@ -22,3 +22,13 @@ gcc day1.c -o main.out -lm
 ## Day 2: Gift Shop
 
 So when I looked at [Day 2](https://adventofcode.com/2025/day/2) I instantly felt like using C was a bad idea (lol). However the strength of this language is that others had similar issues for over 50 years, so there are already solutions for most of those common cases. Second thing: when I saw input data, I already knew how the second part of the puzzle would look like. Anyway, managed to solve fist puzzle before work (and fall in love with sscanf - another sign of how much I don't know C) and will try to solve second part in the afternoon.
+
+And so I did as I said. To be honest while I was thinking to treat numbers here as strings (sorry, arrays of chars...) and check for repeat substrings, but no. I went with regular operations on numbers like a good Cookie I am. Overall, nice puzzle, liked it better then the first one, becouse it was more about solution itself and less about edge cases. Still, I get quite nervous when thinking about limits of data types, but there is nothing long long int can't solve. Anyway.
+To run day 2 solutions again provide your input and run:
+``` shell
+
+gcc day2.c -o main.out -lm
+./main.out
+
+```
+And lets hope day 3 won't crush me.
