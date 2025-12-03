@@ -5,18 +5,21 @@
  #include <stdio.h>
 
  long int get_max_joltage(char* bank, int batteries_needed)
+ /*
+  * Function takes a string of batteries (bank) and number of batteries needed
+  */
  {
-    printf("%s", bank);
     long int joltage = 0;
     int max_joltage_battery = -1;
     int last_bettery_index = -1;
-    /* Finding first battery */
-    /* Last char before null sigh is newline, so I iterate to that */
 
+    /* Finding batteries */
     for(int j = 1; j <= batteries_needed; j+=1)
     {
+        /* Last char before null sign is newline, so I iterate to that */
         for(int i = last_bettery_index+1; bank[i + (batteries_needed - j)] != '\n'; i += 1)
         {
+            /* Char to int conversion */
             int current_battery = bank[i] - '0';
             if(current_battery>max_joltage_battery)
             {
@@ -24,50 +27,17 @@
                 last_bettery_index = i;
             }
         }
-        printf("Max Battery [%d]: %d\n", j, max_joltage_battery);
         joltage = (joltage * 10) + max_joltage_battery;
         max_joltage_battery = -1;
     }
-    /*
-
-    for(int i = 0; bank[i+1] != '\n'; i+=1)
-    {
-        int current_battery = bank[i] - '0';
-        if(current_battery>first_battery)
-        {
-            first_battery = current_battery;
-            first_battery_index = i;
-        }
-
-        printf("%d ", current_battery);
-    }
-    printf("\nFirst Battery: %d\n", first_battery);
-
-
-    for(int i = first_battery_index+1; bank[i]!='\n'; i += 1 )
-    {
-        int current_battery = bank[i] - '0';
-        if(current_battery>second_battery)
-        {
-            second_battery = current_battery;
-        }
-
-        printf("%d ", current_battery);
-    }
-    printf("\nSecond Battery: %d\n", second_battery);
-    */
-    printf("Joltage: %ld", joltage);
-
-
-
-    printf("\n");
 
     return joltage;
  }
 
  int main(int argc, char *argv[])
  {
-     long int joltage_sum = 0;
+     long int joltage_sum_1 = 0;
+     long int joltage_sum_2 = 0;
      /* Create pointer to the file */
      FILE *fptr;
      /*  Open a file in read mode */
@@ -77,11 +47,13 @@
 
      while(fgets(inputString, 500, fptr))
      {
-         joltage_sum += get_max_joltage(inputString, 12);
+         joltage_sum_1 += get_max_joltage(inputString, 2);
+         joltage_sum_2 += get_max_joltage(inputString, 12);
      }
      fclose(fptr);
 
-     printf("Total output joltage is: %ld\n", joltage_sum);
+     printf("Total output joltage for 2 batteries is is: %ld\n", joltage_sum_1);
+     printf("Total output joltage for 12 batteries is is: %ld\n", joltage_sum_2);
 
      return 0;
  }

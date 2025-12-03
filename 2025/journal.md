@@ -12,7 +12,7 @@ I'll try to give [Zed](https://zed.dev/) a shot as an editor + use old and loved
 ## Day 1: Secret Entrance
 [First puzzle](https://adventofcode.com/2025/day/1) looked like your standard programing task, load data and do something with it. I think I spend more time on writing code to load data from the file and split it into different variables than on solution itself. The problem appeared when I tried to solve the second puzzle. For whatever reason I couldn't figure out all the edge cases right (has it made past that 0 or not, how to we handle 100 step rotation that starts on 0, when to actually count what.) In the end, my first solution didn't worked, so I went back to my original puzzle 1 soultion, changed it to pass pointer to position and return number of times 0 was "dialed past". I wasn't sure of my solution (both solved example correctly) but it worked on the first time.
 To run day 1 solution make sure your input data is in /inputs directory as day1.txt and run the following command:
-``` shell
+```console
 
 gcc day1.c -o main.out -lm
 ./main.out
@@ -25,10 +25,21 @@ So when I looked at [Day 2](https://adventofcode.com/2025/day/2) I instantly fel
 
 And so I did as I said. To be honest while I was thinking to treat numbers here as strings (sorry, arrays of chars...) and check for repeat substrings, but no. I went with regular operations on numbers like a good Cookie I am. Overall, nice puzzle, liked it better then the first one, becouse it was more about solution itself and less about edge cases. Still, I get quite nervous when thinking about limits of data types, but there is nothing long long int can't solve. Anyway.
 To run day 2 solutions again provide your input and run:
-``` shell
+```console
 
 gcc day2.c -o main.out -lm
 ./main.out
 
 ```
 And lets hope day 3 won't crush me.
+
+
+## Day 3: Lobby
+
+...and it didnt. To be honest it was the easiest [puzzle](https://adventofcode.com/2025/day/3) out of them all so far, very school-like, with iterating over the array while changing the start and end of each iteration. It is also first time when I can say I'm feeling ok with how my solution look like. Also managed to do this without any includes beside <stdio.h>, but to be honest I have no idea where I could even use something here. Anyway, run it the same way as previous ones:
+```console
+
+gcc day2.c -o main.out -lm
+./main.out
+
+```
