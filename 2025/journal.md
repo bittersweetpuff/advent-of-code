@@ -39,7 +39,7 @@ And lets hope day 3 won't crush me.
 ...and it didnt. To be honest it was the easiest [puzzle](https://adventofcode.com/2025/day/3) out of them all so far, very school-like, with iterating over the array while changing the start and end of each iteration. It is also first time when I can say I'm feeling ok with how my solution look like. Also managed to do this without any includes beside <stdio.h>, but to be honest I have no idea where I could even use something here. Anyway, run it the same way as previous ones:
 ```console
 
-gcc day2.c -o main.out -lm
+gcc day3.c -o main.out -lm
 ./main.out
 
 ```
