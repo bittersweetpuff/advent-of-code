@@ -43,3 +43,13 @@ gcc day3.c -o main.out -lm
 ./main.out
 
 ```
+
+## Day 4: Printing Department
+
+Oh boy... here we go. So this [day](https://adventofcode.com/2025/day/4) I decided, why not, why shouldnt I use *malloc*. In the end I'm kinda conflicted on my solution. I really like my dynamicly allocated adjacency matrix on one hand, and it really made it easy to solver second part of the puzzle. But I dislike the amount of "trust me bro" code with accessing arrays, mutable values and stuff. In general, I think this day was the most fun. How to run? We'll i don't need math.h this time so:
+```console
+
+gcc day4.c -o main.out
+./main.out
+
+```
