@@ -31,10 +31,16 @@ void mark_adjacency(int** matrix, int row, int column)
             }
         }
     }
-
 }
 
-int count_paper_rolls(char grid[200][200], int grid_size)
+void reset_adjacency_matrix(int** matrix, int matrix_size)
+{
+    for(int i = 0; i<matrix_size; i += 1)
+        for(int j = 0; j<matrix_size; j += 1)
+            matrix[i][j] = 0;
+}
+
+int remove_paper_rolls(char grid[200][200], int grid_size)
 {
     printf("Counting paper rolls\n");
     int matrix_size = grid_size+2;
@@ -48,9 +54,8 @@ int count_paper_rolls(char grid[200][200], int grid_size)
     }
     printf("Filling matrix\n");
     /* Fill matrix with zeros */
-    for(int i = 0; i<matrix_size; i += 1)
-        for(int j = 0; j<matrix_size; j += 1)
-            adjacency_matrix[i][j] = 0;
+    reset_adjacency_matrix(adjacency_matrix, matrix_size);
+
 
     printf("Printing grid\n");
     for(int i = 0; i < grid_size; i += 1)
@@ -86,6 +91,7 @@ int count_paper_rolls(char grid[200][200], int grid_size)
                 {
                     rolls_count += 1;
                     printf("X");
+                    grid[i][j] = '.';
                 }
                 else
                 {
@@ -130,9 +136,18 @@ int main(int argc, char *argv[])
     int grid_size = row;
     fclose(fptr);
 
-    int rolls_count = count_paper_rolls(grid, grid_size);
+    int rolls_count = remove_paper_rolls(grid, grid_size);
 
-    printf("Number of paper rolls that can be removed: %d\n", rolls_count);
+    int rolls_sum = rolls_count;
+    int rolls_first = rolls_count;
+    while(rolls_count>0)
+    {
+        rolls_count = remove_paper_rolls(grid, grid_size);
+        rolls_sum += rolls_count;
+    }
+
+    printf("Number of paper rolls that can be removed in first iteration: %d\n", rolls_first);
+    printf("Number of paper rolls that can be removed: %d\n", rolls_sum);
 
 
     return 0;
