@@ -4,6 +4,30 @@
  */
  #include <stdio.h>
 
+ long int max(long int a, long int b)
+ {
+     if(a >= b)
+     {
+         return a;
+     }
+     else
+     {
+         return b;
+     }
+ }
+
+ long int min(long int a, long int b)
+ {
+     if(a <= b)
+     {
+         return a;
+     }
+     else
+     {
+         return b;
+     }
+ }
+
  typedef struct
  {
      long int start;
@@ -40,7 +64,6 @@
  {
      if(id >= checked_range.start && id <= checked_range.stop)
      {
-         //printf("\n%ld in range %ld-%ld\n", id, checked_range.start, checked_range.stop);
          return 1;
      }
      else
@@ -58,6 +81,75 @@
      }
 
      return inside;
+ }
+
+ int check_range_overlap(Range a, Range b)
+ {
+    if((a.start >= b.start && a.start <= b.stop) || (b.start >= a.start && b.start <= a.stop))
+    {
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }
+ }
+
+ Range merge_ranges(Range a, Range b)
+ {
+     long int merged_start = min(a.start, b.start);
+     long int merged_stop = max(a.stop, b.stop);
+     Range merged_range = new_range(merged_start, merged_stop);
+
+     return merged_range;
+ }
+
+ int flatten_range_list(RangeList* range_list)
+ {
+     int flattened = 0;
+     /* Return 0 if there is only one range remaining */
+     if(range_list->size <= 1)
+     {
+         return flattened;
+     }
+     int current = 0;
+
+     while (current < range_list->size)
+     {
+         int compared = current + 1;
+         while (compared < range_list->size)
+         {
+             if(check_range_overlap(range_list->list[current], range_list->list[compared]))
+             {
+                 flattened = 1;
+                 range_list->list[current] = merge_ranges(range_list->list[current], range_list->list[compared]);
+                 for(int i = compared; i < range_list->size-1; i += 1)
+                 {
+                     range_list->list[i] = range_list->list[i+1];
+                 }
+                 range_list->size -= 1;
+             }
+             else
+             {
+                 compared += 1;
+             }
+         }
+         current += 1;
+     }
+
+     return flattened;
+ }
+
+ long int count_range_lists_covered(RangeList ranges)
+ {
+     long int count = 0;
+     for(int i = 0; i<ranges.size; i += 1)
+     {
+         /* Add 1 for single element ranges */
+         count += (ranges.list[i].stop - ranges.list[i].start) + 1;
+     }
+
+     return count;
  }
 
 
@@ -103,10 +195,27 @@ int main(int argc, char *argv[])
         {
             printf("\n");
         }
-        //fgets(inputString, 100, fptr);
     }
+    /* Close file */
     fclose(fptr);
+
+    /* Puzzle 1 solution */
     printf("Number of fresh items: %d\n", fresh_count);
+
+    /* Flattening ranges */
+    int flattened = 0;
+    do
+    {
+        flattened = flatten_range_list(&ranges);
+
+    }
+    while(flattened == 1);
+
+    printf("Flattened ranges:\n");
+    print_ranges(ranges);
+
+
+    printf("Count of numbers covered by all ranges equals %ld\n", count_range_lists_covered(ranges));
 
     return 0;
 }
