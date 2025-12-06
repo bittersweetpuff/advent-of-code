@@ -4,6 +4,26 @@
  */
  #include <stdio.h>
 
+ typedef struct
+ /*
+  * Struct representing range
+  */
+ {
+     long int start;
+     long int stop;
+
+ } Range;
+
+ typedef struct
+ /*
+  * Struct for easy (lets say) management of all the ranges
+  */
+ {
+     int size;
+     /* 250 is more then needed for puzzle input */
+     Range list[250];
+ } RangeList;
+
  long int max(long int a, long int b)
  /*
   * Standard max function for long int, returns bigger value
@@ -33,27 +53,6 @@
          return b;
      }
  }
-
- typedef struct
- /*
-  * Struct representing range
-  */
- {
-     long int start;
-     long int stop;
-
- } Range;
-
- typedef struct
- /*
-  * Struct for easy (lets say) management of all the ranges
-  */
- {
-     int size;
-     /* 250 is more then needed for puzzle input */
-     Range list[250];
- } RangeList;
-
 
  void print_ranges(RangeList ranges)
  /*
