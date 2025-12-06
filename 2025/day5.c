@@ -5,6 +5,9 @@
  #include <stdio.h>
 
  long int max(long int a, long int b)
+ /*
+  * Standard max function for long int, returns bigger value
+  */
  {
      if(a >= b)
      {
@@ -17,6 +20,9 @@
  }
 
  long int min(long int a, long int b)
+ /*
+  * Standard min function for long int, returns smaller value
+  */
  {
      if(a <= b)
      {
@@ -29,6 +35,9 @@
  }
 
  typedef struct
+ /*
+  * Struct representing range
+  */
  {
      long int start;
      long int stop;
@@ -36,6 +45,9 @@
  } Range;
 
  typedef struct
+ /*
+  * Struct for easy (lets say) management of all the ranges
+  */
  {
      int size;
      /* 250 is more then needed for puzzle input */
@@ -44,6 +56,9 @@
 
 
  void print_ranges(RangeList ranges)
+ /*
+  * Pretty print for all ranges (used mostly for debug)
+  */
  {
      for(int i = 0; i < ranges.size; i += 1)
      {
@@ -52,6 +67,9 @@
  }
 
  Range new_range(long int r_start, long int r_stop)
+ /*
+  * Builds a new range and return it (builder function?)
+  */
  {
      Range new_range;
      new_range.start = r_start;
@@ -61,6 +79,9 @@
 
 
  int id_in_range(long int id, Range checked_range)
+ /*
+  * Checks if ID is in range, returns 1 if yes
+  */
  {
      if(id >= checked_range.start && id <= checked_range.stop)
      {
@@ -72,6 +93,9 @@
 
 
  int id_in_any_range(long int id, RangeList all_ranges)
+ /*
+  * Checks if id is in any range int the RangeList struct
+  */
  {
      int inside = 0;
      for(int i = 0; i < all_ranges.size; i += 1)
@@ -84,6 +108,9 @@
  }
 
  int check_range_overlap(Range a, Range b)
+ /*
+  * Basic overlap check for two ranges
+  */
  {
     if((a.start >= b.start && a.start <= b.stop) || (b.start >= a.start && b.start <= a.stop))
     {
@@ -96,6 +123,9 @@
  }
 
  Range merge_ranges(Range a, Range b)
+ /*
+  * Merge two overlaping ranges into one.
+  */
  {
      long int merged_start = min(a.start, b.start);
      long int merged_stop = max(a.stop, b.stop);
@@ -105,6 +135,10 @@
  }
 
  int flatten_range_list(RangeList* range_list)
+ /*
+  * Makes a single pass on all ranges in range list. Modifies the original list.
+  * Returns 1 if changes have been made and 0 if no range could be flattend.
+  */
  {
      int flattened = 0;
      /* Return 0 if there is only one range remaining */
@@ -141,6 +175,9 @@
  }
 
  long int count_range_lists_covered(RangeList ranges)
+ /*
+  * Counts all numbers covered by all ranges in the ranges list.
+  */
  {
      long int count = 0;
      for(int i = 0; i<ranges.size; i += 1)
@@ -172,7 +209,6 @@ int main(int argc, char *argv[])
     ranges.size = 0;
     while(sscanf(inputString, "%ld-%ld", &range_start, &range_stop) == 2)
     {
-        printf("Range: %ld-%ld\n", range_start, range_stop);
         ranges.list[ranges.size] = new_range(range_start, range_stop);
         ranges.size += 1;
         fgets(inputString, 100, fptr);
@@ -199,11 +235,9 @@ int main(int argc, char *argv[])
     /* Close file */
     fclose(fptr);
 
-    /* Puzzle 1 solution */
-    printf("Number of fresh items: %d\n", fresh_count);
-
     /* Flattening ranges */
     int flattened = 0;
+    /* Flattens the ranges until no ranges can be flattend */
     do
     {
         flattened = flatten_range_list(&ranges);
@@ -211,11 +245,13 @@ int main(int argc, char *argv[])
     }
     while(flattened == 1);
 
-    printf("Flattened ranges:\n");
+    printf("\nFlattened ranges:\n\n");
     print_ranges(ranges);
 
-
-    printf("Count of numbers covered by all ranges equals %ld\n", count_range_lists_covered(ranges));
+    /* Puzzle 1 solution */
+    printf("\nNumber of fresh items: %d\n", fresh_count);
+    /* Puzzle 2 solution */
+    printf("\nCount of numbers covered by all ranges equals %ld\n", count_range_lists_covered(ranges));
 
     return 0;
 }
