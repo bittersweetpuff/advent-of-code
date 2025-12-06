@@ -74,7 +74,7 @@
      /* Create pointer to the file */
      FILE *fptr;
      /*  Open a file in read mode */
-     fptr = fopen("./inputs/day6.txt", "r");
+     fptr = fopen("./inputs/day6-test.txt", "r");
      /*  Store the content of the file. Bigger buffer this time */
      char inputString[4000];
      char lastLine[4000];
@@ -86,14 +86,11 @@
      strcpy(lastLine, inputString);
      while(fgets(inputString, 4000, fptr))
      {
-         printf("Line %d: %s", matrix.no_of_lines, lastLine);
-         printf("Scanning line...\n");
          int count = 0;
          char * str_number = strtok(lastLine, " ");
          while( str_number != NULL )
          {
              int number = atoi(str_number);
-             printf("Scanned number: %d\n", number);
              /* Put number in matrix */
              matrix.number_lines[matrix.no_of_lines][count] = number;
              str_number = strtok(NULL, " ");
@@ -110,7 +107,6 @@
      {
          char sign;
          sscanf(str_sign, "%c", &sign);
-         printf("Scanned sign: %c\n", sign);
          matrix.sign_line[matrix.no_of_columns] = sign;
          matrix.no_of_columns += 1;
          str_sign = strtok(NULL, " ");
