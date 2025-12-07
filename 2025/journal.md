@@ -64,3 +64,24 @@ gcc day5.c -o main.out
 
 ```
 ...and we shall see what the weekend challanges will be.
+
+## Day 6: Trash Compactor
+
+Now [this one](https://adventofcode.com/2025/day/6) was messy. First part was super easy, second took me a good while to first, understand, second implement. I'm sure it could have been done way simpler and safer, but I still managed to get that on first time (lol). Took me way longer than I hoped it would and really humbled me. The final solution in my opinion ain't that bad (except the last equation), but the amount of code and general complexity leaves a lot to be desired. To run:
+```console
+
+gcc day6.c -o main.out
+./main.out
+
+```
+
+## Day 7: Laboratories
+
+And [this one](https://adventofcode.com/2025/day/7) broke me (kinda?). First part I rushed into the most obvious (but not the best) solution (simulating the path of rays) and obviously it worked. The problems started when I went into second part. First, it took me some time to understand how it is suposed to work and I was like... yeah just add all the rays that end in that cell.... that wasn't correct. So I took way to much time looking at similar problems, and got it done. The result was correct and I understand how my solution work but I'm not sure if I would figure that out... ever. Here's how to run it
+```console
+
+gcc day7.c -o main.out
+./main.out
+
+```
+Anyway, that was the first time I needed to look for some extra guidance online, and hopefuly the last one... But we shall see.
