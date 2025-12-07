@@ -7,6 +7,9 @@
  #include <string.h>
 
  typedef struct
+ /*
+  * Struct holding the operation matrix from puzzle 1
+  */
  {
      int no_of_columns;
      int no_of_lines;
@@ -15,6 +18,9 @@
  } OperationMatrix;
 
  typedef struct
+ /*
+  * Struct holding the operation matrix from puzzle 2
+  */
  {
      int no_of_columns;
      int no_of_lines;
@@ -24,6 +30,9 @@
 
 
  void print_operation_matrix(OperationMatrix matrix)
+ /*
+  * Print function for debug
+  */
  {
      for(int i = 0; i<matrix.no_of_lines; i += 1)
      {
@@ -41,6 +50,9 @@
  }
 
  void print_cephalopod_matrix(CephalopodMatrix matrix)
+ /*
+  * Print function for debug
+  */
  {
      for(int i = 0; i<matrix.no_of_lines; i += 1)
      {
@@ -54,6 +66,9 @@
  }
 
  int get_equation_end(CephalopodMatrix matrix, int equation_start)
+ /*
+  * Part of puzzle 2 mess. Getting the position of empty line across all rows
+  */
  {
      int end = 0;
 
@@ -63,7 +78,6 @@
          end = i;
          for(int j = 0; j < matrix.no_of_lines - 1; j += 1)
          {
-             //printf("Char in %d line, %d columns: [%c]\n", j, i, matrix.char_lines[j][i]);
              if(matrix.char_lines[j][i] != ' ' && matrix.char_lines[j][i] != '\n')
              {
                  empty = 0;
@@ -71,7 +85,6 @@
          }
          if(empty)
          {
-             printf("END OF EQUATION!\n");
              return end;
          }
      }
@@ -79,6 +92,9 @@
  }
 
  long long int evaluate_array(int *array, int size, char sign)
+ /*
+  * Sums or multiplies the elements of an array based on sign
+  */
  {
      long long int result;
      if(sign == '+')
@@ -105,6 +121,9 @@
  }
 
  long long int evaluate_column(OperationMatrix matrix, int column)
+ /*
+  * Evaluates column in operation matrix
+  */
  {
      long long int result;
      char sign = matrix.sign_line[column];
@@ -139,6 +158,9 @@
  }
 
  long long int evaluate_matrix(OperationMatrix matrix)
+ /*
+  * Sums all evaluated columns
+  */
  {
      long long int result = 0;
      for(int i = 0; i<matrix.no_of_columns; i += 1)
@@ -149,6 +171,10 @@
  }
 
  long long int evaluate_cephalopod_matrix(CephalopodMatrix c_matrix)
+ /*
+  * The mess. Evaluates cephalopod style matrix. A lot of unsafe code and lack of checks based on
+  * the knowledge of original input.
+  */
  {
      long long int result = 0;
 
@@ -159,14 +185,12 @@
      char cephalopod_number[10];
      while(current_equation < c_matrix.no_of_columns-1) {
          equation_end = get_equation_end(c_matrix, equation_start);
-         printf("Equation from %d to %d\n", equation_start, equation_end);
          for(int i = equation_start; i< equation_end; i += 1)
          {
              for(int j = 0; j < c_matrix.no_of_lines-1; j += 1)
              {
                  cephalopod_number[j] = c_matrix.char_lines[j][i];
              }
-             printf("C Number: %d\n", atoi(cephalopod_number));
              equation_array[i-equation_start] = atoi(cephalopod_number);
          }
 
@@ -176,7 +200,6 @@
      }
 
      /* Yolo last equation */
-     printf("LAST EQUATION!\n");
      for(int i = equation_start; i<equation_start + c_matrix.no_of_lines-1; i += 1)
      {
          for(int j = 0; j < c_matrix.no_of_lines-1; j += 1)
@@ -187,9 +210,6 @@
          equation_array[i-equation_start] = atoi(cephalopod_number);
      }
      result += evaluate_array(equation_array, c_matrix.no_of_lines-1, c_matrix.sign_line[current_equation]);
-
-
-
      return result;
  }
 
