@@ -13,7 +13,7 @@
      }
  }
 
- int process_and_count(char mainfold[200][500], int size)
+ int process_and_count(char mainfold[200][500], int size, int print)
  {
      int splits = 0;
      for(int level = 0; level + 1 < size; level += 1)
@@ -37,7 +37,10 @@
                  }
              }
          }
-         print_tachyon_manifold(mainfold, size);
+         if(print)
+         {
+             print_tachyon_manifold(mainfold, size);
+         }
      }
 
 
@@ -65,7 +68,7 @@
      fclose(fptr);
 
      //print_tachyon_manifold(tachyon_manifold, level_count);
-     int splits = process_and_count(tachyon_manifold, level_count);
+     int splits = process_and_count(tachyon_manifold, level_count, 1);
      printf("Number of times beam splits: %d\n", splits);
      return 0;
  }
