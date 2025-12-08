@@ -18,6 +18,9 @@ typedef struct{
  JunctionBox box_list[1000];
  int box_count = 0;
  int connection_count = 0;
+ /* For puzzle 2 */
+ int last_a, last_b;
+
 
  int comp(const void *a, const void *b) {
      return (*(int*)b - *(int*)a);
@@ -123,8 +126,10 @@ typedef struct{
              }
          }
      }
-     //printf("Closest boxes: %d, %d \n", c_a, c_b);
+     //printf("Linking: %d, %d \n", c_a, c_b);
      link_boxes(&box_list[c_a], &box_list[c_b]);
+     last_a = c_a;
+     last_b = c_b;
 
      return closest;
  }
@@ -144,7 +149,23 @@ typedef struct{
      printf("Biggest 3: %d, %d, %d\n", connections[0], connections[1], connections[2]);
 
      return result = connections[0] * connections[1] * connections[2];
+ }
 
+ int check_if_one_connection()
+ {
+     if(box_list[0].connection == -1)
+     {
+         return 0;
+     }
+     int test_connection = box_list[0].connection;
+     for(int i = 1; i<box_count; i += 1)
+     {
+         if(box_list[i].connection != test_connection)
+         {
+             return 0;
+         }
+     }
+     return 1;
  }
 
 
@@ -172,11 +193,16 @@ typedef struct{
      {
          last = link_closest_boxes(last);
      }
-
-     print_box_list();
      long long int result_1 = get_biggest_connection_multi();
      printf("First puzzle solution: %lld\n", result_1);
-
+     while(!check_if_one_connection())
+     {
+         last = link_closest_boxes(last);
+     }
+     print_box_list();
+     printf("Last two: %d, %d\n", last_a, last_b);
+     long long int result_2 = box_list[last_a].x * box_list[last_b].x;
+     printf("Second puzzle solution: %lld\n", result_2);
 
      //print_distance_grid(box_count);
      //
