@@ -6,7 +6,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef struct{
+ typedef struct
+ /*
+  * Struct representing a JunctionBox
+  */
+ {
      double x;
      double y;
      double z;
@@ -22,11 +26,18 @@ typedef struct{
  int last_a, last_b;
 
 
- int comp(const void *a, const void *b) {
+ int comp(const void *a, const void *b)
+ /*
+  * Totaly stolen comp function for quick sort
+  */
+ {
      return (*(int*)b - *(int*)a);
  }
 
  JunctionBox new_box(double x, double y, double z)
+ /*
+  * JunctionBox builder
+  */
  {
      JunctionBox box;
      box.x = x;
@@ -38,6 +49,9 @@ typedef struct{
  }
 
  double get_distance(JunctionBox a, JunctionBox b)
+ /*
+  * Function returns distance between two boxes
+  */
  {
      double distance;
      double x_pow = pow(a.x-b.x, 2);
@@ -50,6 +64,9 @@ typedef struct{
  }
 
  void print_box_list()
+ /*
+  * Used for debug. Prints list of all junction boxes
+  */
  {
      for(int i = 0; i < box_count; i++)
      {
@@ -59,6 +76,9 @@ typedef struct{
  }
 
  void print_distance_grid(int limit)
+ /*
+  * Used for debug. Prints the distance grid
+  */
  {
      for(int i = 0; i < limit; i += 1)
      {
@@ -71,6 +91,9 @@ typedef struct{
  }
 
  void populate_distance_grid()
+ /*
+  * Calculates all distances between boxes and saves them in grid
+  */
  {
      for(int a = 0; a < box_count - 1; a += 1)
      {
@@ -82,6 +105,11 @@ typedef struct{
  }
 
  void link_boxes(JunctionBox *a, JunctionBox *b)
+ /*
+  * Links two boxes. If they are both disconected it creates new connection.
+  * If one of them is connectes it adds that connection to another
+  * If both are connected merges both connections into one and updates all related boxes
+  */
  {
      if(a->connection == -1 && b->connection == -1)
      {
@@ -111,6 +139,10 @@ typedef struct{
  }
 
  double link_closest_boxes(double prev_lowest)
+ /*
+  * Finds 2 closest boxes that are further away from each other than previous distance and links them.
+  * Returns the distance between them so it can be run in loop.
+  */
  {
      double closest = 99999999.0;
      int c_a, c_b;
@@ -126,7 +158,6 @@ typedef struct{
              }
          }
      }
-     //printf("Linking: %d, %d \n", c_a, c_b);
      link_boxes(&box_list[c_a], &box_list[c_b]);
      last_a = c_a;
      last_b = c_b;
@@ -135,6 +166,10 @@ typedef struct{
  }
 
  long long int get_biggest_connection_multi()
+ /*
+  * Puzzle 1
+  * Counts all boxes in each connection and returns the multiplication of counts of 3 biggest connections
+  */
  {
      long long int result = 1;
      int connections[1000] = {0};
@@ -146,12 +181,13 @@ typedef struct{
          }
      }
      qsort(connections, 1000, sizeof(int), comp);
-     printf("Biggest 3: %d, %d, %d\n", connections[0], connections[1], connections[2]);
-
      return result = connections[0] * connections[1] * connections[2];
  }
 
  int check_if_one_connection()
+ /*
+  * Checks if all boxes are connected. Used as loop condition for puzzle 2.
+  */
  {
      if(box_list[0].connection == -1)
      {
@@ -185,6 +221,7 @@ typedef struct{
          box_list[box_count] = new_box(x, y, z);
          box_count += 1;
      }
+     /* Close the file */
      fclose(fptr);
 
      populate_distance_grid();
@@ -199,14 +236,7 @@ typedef struct{
      {
          last = link_closest_boxes(last);
      }
-     print_box_list();
-     printf("Last two: %d, %d\n", last_a, last_b);
      long long int result_2 = box_list[last_a].x * box_list[last_b].x;
      printf("Second puzzle solution: %lld\n", result_2);
-
-     //print_distance_grid(box_count);
-     //
-     //print_distance_grid(box_count);
-
      return 0;
  }

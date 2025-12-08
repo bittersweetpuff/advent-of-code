@@ -85,3 +85,14 @@ gcc day7.c -o main.out
 
 ```
 Anyway, that was the first time I needed to look for some extra guidance online, and hopefuly the last one... But we shall see.
+
+
+## Day 8: Playground
+
+Mixed feelings on [this one](https://adventofcode.com/2025/day/8) to be honest. I got the anwser right both times easly (well after a lot of coding), but my solution for part 2 took over 11 seconds to run. I wonder how long it would took in python. I also learned that I was putting docstrings wrong the whole time so my super clean (yeah for sure) code is not that clean after all. I'll give it a solid refactor after im done with the whole AoC. For now, here's how to run it (math.h made a return):
+```console
+
+gcc day8.c -o main.out -lm
+./main.out
+
+```
