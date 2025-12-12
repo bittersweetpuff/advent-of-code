@@ -60,8 +60,8 @@ int max(int a, int b)
      n_wall.start_y = min(ay, by);
      n_wall.end_x = max(ax, bx);
      n_wall.end_y = max(ay, by);
-     printf("New wall from between (%d,%d) and (%d,%d)\n", ax, ay, bx, by);
-     printf("Limits are (%d,%d) and (%d,%d)\n", n_wall.start_x, n_wall.start_y, n_wall.end_x, n_wall.end_y);
+     //printf("New wall from between (%d,%d) and (%d,%d)\n", ax, ay, bx, by);
+     //printf("Limits are (%d,%d) and (%d,%d)\n", n_wall.start_x, n_wall.start_y, n_wall.end_x, n_wall.end_y);
      return n_wall;
  }
 
@@ -161,6 +161,25 @@ int max(int a, int b)
      return on_wall;
  }
 
+ int wall_intersect(Wall vertical, Wall horizontal)
+ {
+     // vertical: x = vertical.start_x
+     // horizontal: y = horizontal.start_y
+
+     int vx = vertical.start_x;
+     int hy = horizontal.start_y;
+
+     // Check if vertical X lies inside horizontal segment
+     if (vx < horizontal.start_x || vx > horizontal.end_x)
+         return 0;
+
+     // Check if horizontal Y lies inside vertical segment
+     if (hy < vertical.start_y || hy > vertical.end_y)
+         return 0;
+
+     return 1;
+ }
+
  int check_if_point_inside(int x, int y)
  {
      int valid = 1;
@@ -186,13 +205,24 @@ int max(int a, int b)
  int is_valid_box(int min_x, int min_y, int max_x, int max_y)
  {
      int valid = 1;
-         for(int y = min_y+1; y < max_y; y += 1)
+     Wall h1 = new_wall(min_x+1, min_y+1, max_x-1, min_y+1);
+     Wall h2 = new_wall(min_x+1, max_y-1, max_x-1, max_y-1);
+     Wall v1 = new_wall(min_x+1, min_y+1, min_x+1, max_y-1);
+     Wall v2 = new_wall(max_x-1, min_y+1, max_x-1, max_y-1);
+     for (int i = 0; i < horizontal_count; i++)
+     {
+         if(wall_intersect(v1, horizontal_walls[i]) || wall_intersect(v2, horizontal_walls[i]))
          {
-             if(!check_if_point_inside(min_x, y))
-             {
-                 return 0;
-             }
+             return 0;
          }
+     }
+     for (int i = 0; i < vertical_count; i++)
+     {
+         if(wall_intersect(vertial_walls[i], h1) || wall_intersect(vertial_walls[i], h2))
+         {
+             return 0;
+         }
+     }
      return valid;
  }
 
