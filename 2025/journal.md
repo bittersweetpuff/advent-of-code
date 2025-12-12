@@ -96,3 +96,14 @@ gcc day8.c -o main.out -lm
 ./main.out
 
 ```
+
+## Day 9: Movie Theater
+
+This journal should be split into two part but Im writing this on December 12th. Well... The first part od [day 9](https://adventofcode.com/2025/day/9) was very easy and I managed to solve it very quickly. Like it was regular nested loop and finding biggest area. The only trick was how to calculate area. The second part however... I tried a couple things. My first idea was raycasting and checking how many walls ray intersects. I think I got it right (worked for example input) but it was to sloooow. I tried to allocate array of all tiles in cinama but thats way to much ram. After the whole evening of trying to solve it I gave up, went away from home for two days and came back. I wanted to give it another shoot and if that doesn't work I would just solve it with Python and shapely. And of course it worked first time. I still wonder why I went through all this raycasting and haven't just checked if walls of rectangle cross any red-green walls. Here's how to run it:
+```console
+
+gcc day9.c -o main.out
+./main.out
+
+```
+This being said and based on next day puzzle, I'll probably move to Python now. It should still allow me to finish the AoC and won't keep me here for days trying to implement basic functionalities. For now I'm still pround of how I did with C and will for sure go back to that language in future.
