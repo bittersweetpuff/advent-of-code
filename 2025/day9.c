@@ -199,7 +199,6 @@ int max(int a, int b)
              int xb = corners[b][0];
              int yb = corners[b][1];
              long long int area = calculate_area(xa, ya, xb, yb);
-             //printf("Area between (%d,%d) and (%d,%d) = %ld\n", xa, ya, xb, yb, area);
              if(area >= biggest)
              {
                  if(is_valid_box(min(xa, xb), min(ya, yb), max(xa, xb), max(ya, yb)))
