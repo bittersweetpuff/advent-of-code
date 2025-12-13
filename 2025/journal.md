@@ -107,3 +107,13 @@ gcc day9.c -o main.out
 
 ```
 This being said and based on next day puzzle, I'll probably move to Python now. It should still allow me to finish the AoC and won't keep me here for days trying to implement basic functionalities. For now I'm still pround of how I did with C and will for sure go back to that language in future.
+
+## Day 10: Factory
+So I did as I said. First [puzzle](https://adventofcode.com/2025/day/10) solution was simple BFS problem (but i guess it was also easy with less memory management python requires). Second part however was my first encounter with [z3](https://github.com/Z3Prover/z3) and boy... that was weird. After finishing solutions and just documenting it line by line I think its quite nice solution, but then I wonder how would I solve that without it. Also, writing it was a trial, error and look for similar solutions case so I'm not that satisfied after all. But hey, new thing learned. To run the file use uv:
+```console
+uv run day10.py
+```
+And if you don't use uv, just install z3-solver from pip and hit good old
+```console
+python day10.py
+```

@@ -14,6 +14,9 @@ joltages = []
 
 
 def load_input():
+    """
+    Loads the AoC input form ./inputs directory and fills in global variables
+    """
     # Array holding raw file input lines
     raw_file_input = []
 
@@ -66,6 +69,9 @@ def load_input():
 
 
 def get_least_button_presses_sum() -> int:
+    """
+    Uses BFS to find the least button presses for each light and adds them together. Returns the sum.
+    """
     presses_sum = 0
     for i in range(len(lights)):
         # The target we want to achieve
@@ -96,29 +102,57 @@ def get_least_button_presses_sum() -> int:
 
 
 def get_least_button_presses_for_joltage_sum() -> int:
+    """
+    Uses z3 to optimize function of joltage for each light and adds results
+    for each light together. Returns the sum.
+    """
+    # Count button presses
     presses_sum = 0
+    # Iterate over lights
     for light in range(len(lights)):
+        # Create Optimize object to minimize number of button presses
         solver = z3.Optimize()
+        # Array of solver variables. Variable for each button with
+        # value of how many times button was pressed
         variables = []
+        # Buttons for given light
         current_buttons = buttons_raw[light]
+        # Target joltages we aim for
         target_joltages = joltages[light]
+        # Variable holding values of joltages
         joltage_variable = [None] * len(target_joltages)
 
         for i, button in enumerate(current_buttons):
+            # Create variable for each button named after index
             variable = z3.Int(str(i))
             variables.append(variable)
+            # Number of presses can't be less than 0
             solver.add(variable >= 0)
+            # For every connection button is wired with
             for connection in button:
+                # If thats the first variable that contributes to this light
+                # set it as expression joltage_variable = this_button_presses
                 if joltage_variable[connection] is None:
                     joltage_variable[connection] = variable
+                # If there is already button affecting this joltage
+                # add it to expression
                 else:
                     joltage_variable[connection] += variable
+        # For every light/joltage
         for index in range(len(target_joltages)):
+            # For only connected lights
             if joltage_variable[index] is not None:
+                # Core constraint aka when solution is correct
+                # Here when sum of all affecting light buttons
+                # equals desired joltage
                 solver.add(target_joltages[index] == joltage_variable[index])
+        # Minimize
         solved = solver.minimize(sum(variables))
+        # Check if solution exist
         if solver.check() == z3.sat:
+            # Return solution as value
             current_pressed = solved.value().as_long()
+        # Add to pressed sum
         presses_sum += current_pressed
     return presses_sum
 
