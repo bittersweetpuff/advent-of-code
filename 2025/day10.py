@@ -3,9 +3,12 @@ Advent of Code 2025: Day 10: Factory
 https://adventofcode.com/2025/day/10
 """
 
+import z3
+
 # Globals
 lights = []
 buttons = []
+# For part 2
 buttons_raw = []
 joltages = []
 
@@ -40,6 +43,7 @@ def load_input():
         # Buttons
         connections = split_line[1:-1]
         current_buttons = []
+        # Keep buttons in raw numeric format for part 2
         current_buttons_raw = []
         for connection in connections:
             # Keeps the toggled lights
@@ -55,8 +59,10 @@ def load_input():
                 tuple([int(x) for x in connection[1:-1].split(",")])
             )
         buttons.append(current_buttons)
-        # current_buttons_raw = [tuple(x) for x in current_buttons_raw]
         buttons_raw.append(current_buttons_raw)
+        # Load joltages for part 2
+        current_joltages = [int(x) for x in split_line[-1][1:-1].split(",")]
+        joltages.append(current_joltages)
 
 
 def get_least_button_presses_sum() -> int:
@@ -89,11 +95,39 @@ def get_least_button_presses_sum() -> int:
     return presses_sum
 
 
+def get_least_button_presses_for_joltage_sum() -> int:
+    presses_sum = 0
+    for light in range(len(lights)):
+        solver = z3.Optimize()
+        variables = []
+        current_buttons = buttons_raw[light]
+        target_joltages = joltages[light]
+        joltage_variable = [None] * len(target_joltages)
+
+        for i, button in enumerate(current_buttons):
+            variable = z3.Int(str(i))
+            variables.append(variable)
+            solver.add(variable >= 0)
+            for connection in button:
+                if joltage_variable[connection] is None:
+                    joltage_variable[connection] = variable
+                else:
+                    joltage_variable[connection] += variable
+        for index in range(len(target_joltages)):
+            if joltage_variable[index] is not None:
+                solver.add(target_joltages[index] == joltage_variable[index])
+        solved = solver.minimize(sum(variables))
+        if solver.check() == z3.sat:
+            current_pressed = solved.value().as_long()
+        presses_sum += current_pressed
+    return presses_sum
+
+
 if __name__ == "__main__":
     load_input()
-    print(lights)
-    print(buttons)
-    print(buttons_raw)
 
     part_1 = get_least_button_presses_sum()
     print(f"Fewest button presses required: {part_1}")
+
+    part_2 = get_least_button_presses_for_joltage_sum()
+    print(f"Fewest button presses required for joltage: {part_2}")
