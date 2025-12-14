@@ -18,6 +18,7 @@ def load_devices():
         device = line.strip().split(": ")[0]
         connections = line.strip().split(": ")[1].split(" ")
         devices[device] = connections
+    file.close()
 
 
 def count_paths(start: str, end: str) -> int:
