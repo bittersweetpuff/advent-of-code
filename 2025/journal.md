@@ -117,3 +117,14 @@ And if you don't use uv, just install z3-solver from pip and hit good old
 ```console
 python day10.py
 ```
+
+## Day 11: Reactor
+Dear diary: [Today's](https://adventofcode.com/2025/day/11) (ok not today's, like 3 days late for that) puzzle was graph problem so yeah, I'm kinda aware of how to solve it. The problem (?) apeared when the second part came in. Solution was obviously super simple, but the number recursive calls was crazy. So I used the @cache decorator for the first time and cant say... I am shocked how much it actually does. So yeah, some new basic python knowledge gained.
+```console
+uv run day11.py
+```
+to run solution or regular
+```console
+python day11.py
+```
+since this one does not rely on any external package
