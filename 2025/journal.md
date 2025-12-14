@@ -128,3 +128,15 @@ to run solution or regular
 python day11.py
 ```
 since this one does not rely on any external package
+
+
+## Day 12: Christmas Tree Farm
+
+Well well... [Final](https://adventofcode.com/2025/day/12) problem was kinda spoiled to me, but I guess its better this way than trying to figure out how to solve it. I spend some time on [reddit](https://www.reddit.com/r/adventofcode/) after finishing the puzzle to see what others think. I don't like the idea of solution to problem not being able to solve the example input. I kinda get the trick of you being forced to realize it's to hard of the problem to solve in time that makes sense, but I still dont like it. Again, you are being asked about the anwser not the full solution. Anyway, I didn't liked this problem but for sure I loved the whole AoC. I'll take some time to clean up earlier days and maybe add final writeup + clean this repo. If you want to run my sorry code:
+```console
+uv run day12.py
+```
+or
+```console
+python day12.py
+```

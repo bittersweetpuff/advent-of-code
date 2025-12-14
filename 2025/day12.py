@@ -72,6 +72,6 @@ def get_valid_regions() -> int:
 
 if __name__ == "__main__":
     load_data()
-    print(presents)
-    print(regions)
-    print(get_valid_regions())
+    valid_regions = get_valid_regions()
+
+    print(f"There are {valid_regions} regions you can fit presents in")
