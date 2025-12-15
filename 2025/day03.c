@@ -4,10 +4,10 @@
  */
  #include <stdio.h>
 
- long int get_max_joltage(char* bank, int batteries_needed)
  /*
   * Function takes a string of batteries (bank) and number of batteries needed
   */
+ long int get_max_joltage(char* bank, int batteries_needed)
  {
     long int joltage = 0;
     int max_joltage_battery = -1;

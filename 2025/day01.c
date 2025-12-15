@@ -5,18 +5,19 @@
 #include <math.h>
 #include <stdio.h>
 
-
+/*
+ * Gets the first character of the string (L or R) and returns it
+ */
 char get_rotation(char* input){
-    /*
-     * Gets the first character of the string (L or R) and returns it
-     */
     return input[0];
 }
 
-int get_steps(char* input){
-    /*
-     * Gets the number of rotation steps from the string. Counts number of characters before null characters and converts them into int
-     */
+
+/*
+ * Gets the number of rotation steps from the string. Counts number of characters before null characters and converts them into int
+ */
+int get_steps(char* input)
+{
     int size = 0;
     int steps = 0;
     while(input[size] != '\0')
@@ -33,15 +34,14 @@ int get_steps(char* input){
     return steps;
 }
 
-int turn_dial_and_count_clicks(int* position, char direction, int steps){
-    /*
-     * Modifies the position value (to avoid having to have separate functions) and returns the number of times it moved
-     * past 0 (ignores cases when it ends at 0: it's being added later by adding part 1 solution)
-     */
-
+/*
+ * Modifies the position value (to avoid having to have separate functions) and returns the number of times it moved
+ * past 0 (ignores cases when it ends at 0: it's being added later by adding part 1 solution)
+ */
+int turn_dial_and_count_clicks(int* position, char direction, int steps)
+{
     if(direction != 'L' && direction != 'R')
         return -1;
-
 
     int clicks = 0;
     int old_position = *position;
@@ -85,8 +85,8 @@ int turn_dial_and_count_clicks(int* position, char direction, int steps){
 }
 
 
-int main(){
-
+int main(int argc, char *argv[])
+{
     /* Create pointer to the file */
     FILE *fptr;
 
@@ -95,7 +95,6 @@ int main(){
 
     /*  Store the content of the file */
     char myString[100];
-
 
     /* initialize all the variables */
     int steps;

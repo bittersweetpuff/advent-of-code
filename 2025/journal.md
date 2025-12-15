@@ -14,7 +14,7 @@ I'll try to give [Zed](https://zed.dev/) a shot as an editor + use old and loved
 To run day 1 solution make sure your input data is in /inputs directory as day1.txt and run the following command:
 ```console
 
-gcc day1.c -o main.out -lm
+gcc day01.c -o main.out -lm
 ./main.out
 
 ```
@@ -27,7 +27,7 @@ And so I did as I said. To be honest while I was thinking to treat numbers here 
 To run day 2 solutions again provide your input and run:
 ```console
 
-gcc day2.c -o main.out -lm
+gcc day02.c -o main.out -lm
 ./main.out
 
 ```
@@ -39,7 +39,7 @@ And lets hope day 3 won't crush me.
 ...and it didnt. To be honest it was the easiest [puzzle](https://adventofcode.com/2025/day/3) out of them all so far, very school-like, with iterating over the array while changing the start and end of each iteration. It is also first time when I can say I'm feeling ok with how my solution look like. Also managed to do this without any includes beside <stdio.h>, but to be honest I have no idea where I could even use something here. Anyway, run it the same way as previous ones:
 ```console
 
-gcc day3.c -o main.out -lm
+gcc day03.c -o main.out -lm
 ./main.out
 
 ```
@@ -49,7 +49,7 @@ gcc day3.c -o main.out -lm
 Oh boy... here we go. So this [day](https://adventofcode.com/2025/day/4) I decided, why not, why shouldnt I use *malloc*. In the end I'm kinda conflicted on my solution. I really like my dynamicly allocated adjacency matrix on one hand, and it really made it easy to solver second part of the puzzle. But I dislike the amount of "trust me bro" code with accessing arrays, mutable values and stuff. In general, I think this day was the most fun. How to run? We'll i don't need math.h this time so:
 ```console
 
-gcc day4.c -o main.out
+gcc day04.c -o main.out
 ./main.out
 
 ```
@@ -59,7 +59,7 @@ gcc day4.c -o main.out
 What a [puzzle](https://adventofcode.com/2025/day/5). Best thing about it is that I always had some mental block regarding flattening overlaping ranges and now... I think I can handle those. I had to finish puzzle kinda late because after work I went to see FNAF2 (lets go!!!). Overall that's the longest code I produced but I wouldn't call this challange hard (the trophy for the hardest still goes to [Day 1](https://adventofcode.com/2025/day/1)). Also used structs for the first time today, but I guess sometimes you just need to get some abstraction in your code. How to run?
 ```console
 
-gcc day5.c -o main.out
+gcc day05.c -o main.out
 ./main.out
 
 ```
@@ -70,7 +70,7 @@ gcc day5.c -o main.out
 Now [this one](https://adventofcode.com/2025/day/6) was messy. First part was super easy, second took me a good while to first, understand, second implement. I'm sure it could have been done way simpler and safer, but I still managed to get that on first time (lol). Took me way longer than I hoped it would and really humbled me. The final solution in my opinion ain't that bad (except the last equation), but the amount of code and general complexity leaves a lot to be desired. To run:
 ```console
 
-gcc day6.c -o main.out
+gcc day06.c -o main.out
 ./main.out
 
 ```
@@ -80,7 +80,7 @@ gcc day6.c -o main.out
 And [this one](https://adventofcode.com/2025/day/7) broke me (kinda?). First part I rushed into the most obvious (but not the best) solution (simulating the path of rays) and obviously it worked. The problems started when I went into second part. First, it took me some time to understand how it is suposed to work and I was like... yeah just add all the rays that end in that cell.... that wasn't correct. So I took way to much time looking at similar problems, and got it done. The result was correct and I understand how my solution work but I'm not sure if I would figure that out... ever. Here's how to run it
 ```console
 
-gcc day7.c -o main.out
+gcc day07.c -o main.out
 ./main.out
 
 ```
@@ -92,7 +92,7 @@ Anyway, that was the first time I needed to look for some extra guidance online,
 Mixed feelings on [this one](https://adventofcode.com/2025/day/8) to be honest. I got the anwser right both times easly (well after a lot of coding), but my solution for part 2 took over 11 seconds to run. I wonder how long it would took in python. I also learned that I was putting docstrings wrong the whole time so my super clean (yeah for sure) code is not that clean after all. I'll give it a solid refactor after im done with the whole AoC. For now, here's how to run it (math.h made a return):
 ```console
 
-gcc day8.c -o main.out -lm
+gcc day08.c -o main.out -lm
 ./main.out
 
 ```
@@ -102,7 +102,7 @@ gcc day8.c -o main.out -lm
 This journal should be split into two part but Im writing this on December 12th. Well... The first part od [day 9](https://adventofcode.com/2025/day/9) was very easy and I managed to solve it very quickly. Like it was regular nested loop and finding biggest area. The only trick was how to calculate area. The second part however... I tried a couple things. My first idea was raycasting and checking how many walls ray intersects. I think I got it right (worked for example input) but it was to sloooow. I tried to allocate array of all tiles in cinama but thats way to much ram. After the whole evening of trying to solve it I gave up, went away from home for two days and came back. I wanted to give it another shoot and if that doesn't work I would just solve it with Python and shapely. And of course it worked first time. I still wonder why I went through all this raycasting and haven't just checked if walls of rectangle cross any red-green walls. Here's how to run it:
 ```console
 
-gcc day9.c -o main.out
+gcc day09.c -o main.out
 ./main.out
 
 ```

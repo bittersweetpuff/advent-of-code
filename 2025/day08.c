@@ -6,10 +6,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+/*
+ * Struct representing a JunctionBox
+ */
  typedef struct
- /*
-  * Struct representing a JunctionBox
-  */
  {
      double x;
      double y;
@@ -26,18 +26,18 @@
  int last_a, last_b;
 
 
- int comp(const void *a, const void *b)
  /*
   * Totaly stolen comp function for quick sort
   */
+ int comp(const void *a, const void *b)
  {
      return (*(int*)b - *(int*)a);
  }
 
- JunctionBox new_box(double x, double y, double z)
  /*
   * JunctionBox builder
   */
+ JunctionBox new_box(double x, double y, double z)
  {
      JunctionBox box;
      box.x = x;
@@ -48,10 +48,10 @@
      return box;
  }
 
- double get_distance(JunctionBox a, JunctionBox b)
  /*
   * Function returns distance between two boxes
   */
+ double get_distance(JunctionBox a, JunctionBox b)
  {
      double distance;
      double x_pow = pow(a.x-b.x, 2);
@@ -63,10 +63,10 @@
      return distance;
  }
 
- void print_box_list()
  /*
   * Used for debug. Prints list of all junction boxes
   */
+ void print_box_list()
  {
      for(int i = 0; i < box_count; i++)
      {
@@ -75,10 +75,10 @@
      }
  }
 
- void print_distance_grid(int limit)
  /*
   * Used for debug. Prints the distance grid
   */
+ void print_distance_grid(int limit)
  {
      for(int i = 0; i < limit; i += 1)
      {
@@ -90,10 +90,10 @@
      }
  }
 
- void populate_distance_grid()
  /*
   * Calculates all distances between boxes and saves them in grid
   */
+ void populate_distance_grid()
  {
      for(int a = 0; a < box_count - 1; a += 1)
      {
@@ -104,12 +104,12 @@
      }
  }
 
- void link_boxes(JunctionBox *a, JunctionBox *b)
  /*
   * Links two boxes. If they are both disconected it creates new connection.
   * If one of them is connectes it adds that connection to another
   * If both are connected merges both connections into one and updates all related boxes
   */
+ void link_boxes(JunctionBox *a, JunctionBox *b)
  {
      if(a->connection == -1 && b->connection == -1)
      {
@@ -138,11 +138,11 @@
      }
  }
 
- double link_closest_boxes(double prev_lowest)
  /*
   * Finds 2 closest boxes that are further away from each other than previous distance and links them.
   * Returns the distance between them so it can be run in loop.
   */
+ double link_closest_boxes(double prev_lowest)
  {
      double closest = 99999999.0;
      int c_a, c_b;
@@ -165,11 +165,11 @@
      return closest;
  }
 
- long long int get_biggest_connection_multi()
  /*
   * Puzzle 1
   * Counts all boxes in each connection and returns the multiplication of counts of 3 biggest connections
   */
+ long long int get_biggest_connection_multi()
  {
      long long int result = 1;
      int connections[1000] = {0};
@@ -184,10 +184,10 @@
      return result = connections[0] * connections[1] * connections[2];
  }
 
- int check_if_one_connection()
  /*
   * Checks if all boxes are connected. Used as loop condition for puzzle 2.
   */
+ int check_if_one_connection()
  {
      if(box_list[0].connection == -1)
      {

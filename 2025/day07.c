@@ -10,10 +10,10 @@
  char quantum_tachyon_manifold[200][500];
  int level_count = 0;
 
- void print_tachyon_manifold(char mainfold[200][500], int size)
  /*
   * Printing the grid for debug.
   */
+ void print_tachyon_manifold(char mainfold[200][500], int size)
  {
      for(int i = 0; i < size; i+=1)
      {
@@ -21,10 +21,10 @@
      }
  }
 
- void print_timeline_matrix(int matrix[200][500], int rows, int cols)
  /*
   * Printing timeline matrix for debug
   */
+ void print_timeline_matrix(int matrix[200][500], int rows, int cols)
  {
      for(int i = 0; i<rows; i+=1)
      {
@@ -36,10 +36,10 @@
      }
  }
 
- long int get_timelines(long int timeline_matrix[200][500], int row, int column)
  /*
   * Recursive function returning the number of timelines the original ray could split into.
   */
+ long int get_timelines(long int timeline_matrix[200][500], int row, int column)
  {
      long int result;
      if(row == level_count - 1)
@@ -61,13 +61,12 @@
      }
      timeline_matrix[row][column] = result;
      return result;
-
  }
 
- int process_and_count(char mainfold[200][500], int size, int print)
  /*
   * Puzzle 1 solution. Very basic, simulates the path of the ray and counts splits.
   */
+ int process_and_count(char mainfold[200][500], int size, int print)
  {
      int splits = 0;
      for(int level = 0; level + 1 < size; level += 1)
@@ -99,10 +98,10 @@
      return splits;
  }
 
- long int qunatum_process_and_count()
  /*
   * Puzzle 2 solution. It uses recursive function that count all rays the original ray could split into.
   */
+ long int qunatum_process_and_count()
  {
      long int timelines = 0;
      long int timeline_matrix[200][500];

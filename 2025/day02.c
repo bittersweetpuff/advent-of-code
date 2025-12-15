@@ -6,10 +6,10 @@
  #include <stdio.h>
  #include <string.h>
 
- int check_pattern_repeat(long int pattern, long int number, int pattern_lenght)
  /*
   * Checks if the number consists of multiple patterns (for puzzle 2)
   */
+ int check_pattern_repeat(long int pattern, long int number, int pattern_lenght)
  {
      long int multi_pattern = pattern;
      while (multi_pattern<=number)
@@ -24,11 +24,11 @@
      return 0;
  }
 
- int check_id_validity(long int id)
  /*
   * Checks if ID is valid based on Puzzle 1. Calculates length of the number and compares
   * result of multiplication with modulo.
   */
+ int check_id_validity(long int id)
  {
      int length = 1;
      while(id%(long)pow(10, length) != id)
@@ -50,10 +50,10 @@
      }
  }
 
- int check_id_validity_part2(long int id)
  /*
   * Checks if ID is valid based on Puzzle 2
   */
+ int check_id_validity_part2(long int id)
  {
      int length = 1;
      while(id%(long)pow(10, length) != id)
@@ -70,11 +70,11 @@
  }
 
 
- long long int scan_range(long int start, long int stop, int method)
  /*
   * Takes start and stop of the range + method (1 or 2 based on puzzle, yeah i could use some multiple returns)
   * and returns sum of all invalid IDs in that range
   */
+ long long int scan_range(long int start, long int stop, int method)
  {
      long long int sum = 0;
      long long int sum2 = 0;

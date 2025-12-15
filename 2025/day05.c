@@ -4,30 +4,30 @@
  */
  #include <stdio.h>
 
- typedef struct
  /*
   * Struct representing range
   */
+ typedef struct
  {
      long int start;
      long int stop;
 
  } Range;
 
- typedef struct
  /*
   * Struct for easy (lets say) management of all the ranges
   */
+ typedef struct
  {
      int size;
      /* 250 is more then needed for puzzle input */
      Range list[250];
  } RangeList;
 
- long int max(long int a, long int b)
  /*
   * Standard max function for long int, returns bigger value
   */
+ long int max(long int a, long int b)
  {
      if(a >= b)
      {
@@ -39,10 +39,10 @@
      }
  }
 
- long int min(long int a, long int b)
  /*
   * Standard min function for long int, returns smaller value
   */
+ long int min(long int a, long int b)
  {
      if(a <= b)
      {
@@ -54,10 +54,10 @@
      }
  }
 
- void print_ranges(RangeList ranges)
  /*
   * Pretty print for all ranges (used mostly for debug)
   */
+ void print_ranges(RangeList ranges)
  {
      for(int i = 0; i < ranges.size; i += 1)
      {
@@ -65,10 +65,10 @@
      }
  }
 
- Range new_range(long int r_start, long int r_stop)
  /*
   * Builds a new range and return it (builder function?)
   */
+ Range new_range(long int r_start, long int r_stop)
  {
      Range new_range;
      new_range.start = r_start;
@@ -77,10 +77,10 @@
  }
 
 
- int id_in_range(long int id, Range checked_range)
  /*
   * Checks if ID is in range, returns 1 if yes
   */
+ int id_in_range(long int id, Range checked_range)
  {
      if(id >= checked_range.start && id <= checked_range.stop)
      {
@@ -91,10 +91,10 @@
  }
 
 
- int id_in_any_range(long int id, RangeList all_ranges)
  /*
   * Checks if id is in any range int the RangeList struct
   */
+ int id_in_any_range(long int id, RangeList all_ranges)
  {
      int inside = 0;
      for(int i = 0; i < all_ranges.size; i += 1)
@@ -106,10 +106,10 @@
      return inside;
  }
 
- int check_range_overlap(Range a, Range b)
  /*
   * Basic overlap check for two ranges
   */
+ int check_range_overlap(Range a, Range b)
  {
     if((a.start >= b.start && a.start <= b.stop) || (b.start >= a.start && b.start <= a.stop))
     {
@@ -121,10 +121,10 @@
     }
  }
 
- Range merge_ranges(Range a, Range b)
  /*
   * Merge two overlaping ranges into one.
   */
+ Range merge_ranges(Range a, Range b)
  {
      long int merged_start = min(a.start, b.start);
      long int merged_stop = max(a.stop, b.stop);
@@ -133,11 +133,11 @@
      return merged_range;
  }
 
- int flatten_range_list(RangeList* range_list)
  /*
   * Makes a single pass on all ranges in range list. Modifies the original list.
   * Returns 1 if changes have been made and 0 if no range could be flattend.
   */
+ int flatten_range_list(RangeList* range_list)
  {
      int flattened = 0;
      /* Return 0 if there is only one range remaining */
@@ -173,10 +173,10 @@
      return flattened;
  }
 
- long int count_range_lists_covered(RangeList ranges)
  /*
   * Counts all numbers covered by all ranges in the ranges list.
   */
+ long int count_range_lists_covered(RangeList ranges)
  {
      long int count = 0;
      for(int i = 0; i<ranges.size; i += 1)
@@ -213,22 +213,14 @@ int main(int argc, char *argv[])
         fgets(inputString, 100, fptr);
     }
 
-    print_ranges(ranges);
-
     /* Skip blank line and get items till the end of file */
     int fresh_count = 0;
     while (fgets(inputString, 100, fptr))
     {
         sscanf(inputString, "%ld", &current_item);
-        printf("Item to scan: %ld", current_item);
         if(id_in_any_range(current_item, ranges))
         {
             fresh_count += 1;
-            printf(" *FRESH*\n");
-        }
-        else
-        {
-            printf("\n");
         }
     }
     /* Close file */
@@ -244,13 +236,10 @@ int main(int argc, char *argv[])
     }
     while(flattened == 1);
 
-    printf("\nFlattened ranges:\n\n");
-    print_ranges(ranges);
-
     /* Puzzle 1 solution */
-    printf("\nNumber of fresh items: %d\n", fresh_count);
+    printf("Number of fresh items: %d\n", fresh_count);
     /* Puzzle 2 solution */
-    printf("\nCount of numbers covered by all ranges equals %ld\n", count_range_lists_covered(ranges));
+    printf("Count of numbers covered by all ranges equals %ld\n", count_range_lists_covered(ranges));
 
     return 0;
 }
