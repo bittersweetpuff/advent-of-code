@@ -1,2 +1,4 @@
 */inputs
 *.out
+uv.lock
+.venv
